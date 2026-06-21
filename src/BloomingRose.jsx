@@ -254,35 +254,55 @@ function drawRealisticRose(ctx, w, h, seed, palette, bloomProgress) {
   }
 }
 
-export default function BloomingRose({ seed = 1, palette = ['#ff4d6d', '#c11a36', '#7b001d'], size = 220, duration = 4.5 }) {
-  const ref = useRef(null)
+export default function BloomingRose({ seed = 1, palette = ['#ff4d6d', '#c11a36', '#7b001d'], size = 620, duration = 4.5 }) {
+  const wrapperRef = useRef(null)
+  const canvasRef = useRef(null)
   const [bloomProgress, setBloomProgress] = useState(0)
+  const [dimensions, setDimensions] = useState({ width: size, height: size })
 
   useEffect(() => {
     const startTime = Date.now()
-    
+
     const animate = () => {
       const elapsed = (Date.now() - startTime) / 1000
       const progress = Math.min(elapsed / duration, 1)
       setBloomProgress(progress)
-      
+
       if (progress < 1) {
         requestAnimationFrame(animate)
       }
     }
-    
+
     animate()
   }, [duration])
 
   useEffect(() => {
-    const canvas = ref.current
+    const wrapper = wrapperRef.current
+    if (!wrapper) return
+
+    const updateSize = () => {
+      const rect = wrapper.getBoundingClientRect()
+      const width = Math.max(320, Math.round(rect.width))
+      const height = Math.max(320, Math.round(rect.height))
+      setDimensions({ width, height })
+    }
+
+    updateSize()
+    const observer = new ResizeObserver(updateSize)
+    observer.observe(wrapper)
+
+    return () => observer.disconnect()
+  }, [size])
+
+  useEffect(() => {
+    const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext('2d')
 
-    function draw() {
+    const draw = () => {
       const dpr = window.devicePixelRatio || 1
-      const w = size
-      const h = size
+      const w = dimensions.width
+      const h = dimensions.height
       canvas.width = Math.round(w * dpr)
       canvas.height = Math.round(h * dpr)
       canvas.style.width = `${w}px`
@@ -292,9 +312,11 @@ export default function BloomingRose({ seed = 1, palette = ['#ff4d6d', '#c11a36'
     }
 
     draw()
-    window.addEventListener('resize', draw)
-    return () => window.removeEventListener('resize', draw)
-  }, [seed, palette, size, bloomProgress])
+  }, [seed, palette, dimensions, bloomProgress])
 
-  return <canvas ref={ref} aria-hidden="true" />
+  return (
+    <div ref={wrapperRef} className="rose-wrapper">
+      <canvas ref={canvasRef} aria-hidden="true" />
+    </div>
+  )
 }

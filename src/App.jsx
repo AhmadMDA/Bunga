@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import BloomingRose from './BloomingRose'
 
 const FlowerCard = ({ emoji, title, note, onClick }) => (
@@ -11,16 +11,6 @@ const FlowerCard = ({ emoji, title, note, onClick }) => (
 
 export default function App() {
   const [started, setStarted] = useState(false)
-  const [windowWidth, setWindowWidth] = useState(620)
-
-  useEffect(() => {
-    const updateWidth = () => setWindowWidth(window.innerWidth)
-    updateWidth()
-    window.addEventListener('resize', updateWidth)
-    return () => window.removeEventListener('resize', updateWidth)
-  }, [])
-
-  const flowerSize = Math.min(620, Math.max(320, windowWidth - 80))
 
   const flowers = [
     {
@@ -59,7 +49,7 @@ export default function App() {
               seed={4}
               palette={['#ff4d6d', '#c11a36', '#7b001d']}
               duration={4.5}
-              size={flowerSize}
+              size={620}
             />
             <p>{selected?.note}</p>
           </div>
