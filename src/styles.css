@@ -1,0 +1,56 @@
+:root{
+  --bg1:#3c0813;
+  --bg2:#5c0e23;
+  --accent:#d32f3c;
+  --text:#ffe6e9;
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text)}
+.app{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.intro{background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border-radius:24px;padding:44px 42px;text-align:center;box-shadow:0 14px 40px rgba(0,0,0,0.35);max-width:780px;width:100%}
+.intro h1{font-size:48px;margin:0 0 20px;color:#ffd8dc}
+.start-btn{background:linear-gradient(90deg,var(--accent),#b71c1c);border:none;color:white;padding:16px 30px;border-radius:999px;font-size:18px;cursor:pointer;box-shadow:0 8px 24px rgba(211,47,60,0.35)}
+.start-btn:hover{transform:translateY(-3px);transition:transform .18s}
+.flowers-page{width:100%;max-width:980px;margin:40px auto}
+.hero{text-align:center;color:#ffd8dc}
+.hero h1{font-size:36px;margin:0}
+.flower-showcase{display:flex;flex-direction:column;align-items:center;gap:30px;margin-top:30px;padding:68px;max-width:1160px;margin-left:auto;margin-right:auto;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.30);border-radius:44px;box-shadow:0 42px 140px rgba(0,0,0,0.28)}
+.flower-showcase canvas{width:620px;max-width:100%;height:auto;border-radius:36px;box-shadow:0 32px 90px rgba(0,0,0,0.32)}
+.flower-showcase h2{margin:0;color:#f7e7ff;font-size:48px;letter-spacing:0.02em}
+.flower-showcase p{margin:0;color:#e0c3f8;font-size:22px;max-width:92%;text-align:center}
+.flower-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:30px}
+.flower-card{background:linear-gradient(180deg,rgba(255,255,255,0.8),rgba(255,255,255,0.55));border-radius:20px;padding:26px 22px;text-align:center;box-shadow:0 12px 30px rgba(106,0,63,0.14);transform:translateY(0);animation:float 6s ease-in-out infinite;min-height:240px}
+.flower-card{cursor:pointer}
+.flower-emoji{font-size:48px;margin-bottom:8px;filter:drop-shadow(0 6px 18px rgba(255,92,147,0.18))}
+.flower-card h3{margin:8px 0 6px;color:#7e003b}
+.flower-card p{margin:0;color:#5b2232}
+.footer-note{text-align:center;margin-top:28px;color:#6a003f}
+
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+@keyframes popIn{0%{opacity:0;transform:scale(0.3)}100%{opacity:1;transform:scale(1)}}
+
+/* Flower bouquet grid */
+.flower-bouquet{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px;margin-bottom:24px}
+.bouquet-item{animation:fadeInUp 0.6s ease-out forwards;animation-delay:var(--delay,0s)}
+.bouquet-item canvas{display:block;border-radius:10px}
+
+/* Blooming bouquet */
+.blooming-bouquet{display:flex;justify-content:center;align-items:center;margin-bottom:24px}
+.bloom-item{animation:popIn 0.5s ease-out forwards;animation-delay:var(--bloom-delay,0s)}
+.bloom-item canvas{display:block}
+
+/* Overlay / fullscreen modal styles */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.72);display:flex;align-items:center;justify-content:center;z-index:60;padding:24px}
+.overlay-content{background:linear-gradient(180deg,#12051b,#2b0b3f);border-radius:20px;padding:36px 28px;text-align:center;max-width:720px;width:100%;box-shadow:0 30px 80px rgba(0,0,0,0.65)}
+.overlay-emoji{font-size:110px;margin-bottom:10px}
+.overlay-content canvas{display:block;margin:0 auto;border-radius:16px;box-shadow:0 22px 90px rgba(80,0,120,0.35)}
+.overlay-content h2{margin:0 0 8px;color:#f5e6ff;font-size:32px}
+.overlay-content p{margin:0 0 20px;color:#d9c3ff}
+.close-btn{background:transparent;border:2px solid rgba(255,255,255,0.36);color:#f7e7ff;padding:10px 18px;border-radius:999px;cursor:pointer;font-weight:600}
+.close-btn:hover{background:rgba(255,255,255,0.08)}
+
